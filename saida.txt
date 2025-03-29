@@ -1,0 +1,23 @@
+program id1
+	var 
+		id2, id3, id4: integer;
+	procedure id5;
+		var id6: integer;
+	begin
+		id6:=id4*id4;
+		if (id4 id7 2)*2 = id4 then
+			id3:=id3+id6;
+		else
+			id3:=id3-id6;
+	end;
+	
+begin
+	id8(id2);
+	id3:=0; id4:=0;
+	while id4<=id2 do
+	begin	
+		id5;
+		id9 (id3);
+		id4:=id4+1;
+	end
+end
