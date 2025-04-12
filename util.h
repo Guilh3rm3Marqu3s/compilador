@@ -26,6 +26,8 @@ typedef enum{
     TOKEN_ESPACO,
     TOKEN_TAB,
     TOKEN_NOVA_LINHA,
+    TOKEN_READ,
+    TOKEN_WRITE,
 
 
 
@@ -36,5 +38,6 @@ typedef struct{
     char valor[60]; //atomo
     char codigo[60];
 }Token;
+
 
 #endif

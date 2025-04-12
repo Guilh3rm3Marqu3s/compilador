@@ -1,3 +1,10 @@
+/*
+Guilherme Negrini Marques
+RA: 231020104
+SO: macOS
+IDE: VsCode
+OBS: o código funciona para qualquer SO (seja mac,Windows ou Linux)
+*/
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
@@ -36,7 +43,7 @@ bool palavra_reservada(char s[]);//verifica se é uma palavra reservada
 void PROXIMO(void);
 void ERRO(char msg[]);
 void escreve_saida(void);
-
+char* transforma_maiuscula(char str[]);
 Token CODIGO(char s[], int tipo);
 
 void ANALISADOR_LEXICO(void);
@@ -119,7 +126,7 @@ bool letra_ou_digito(char c){
     return (letra(c) || digito(c));
 }
 bool palavra_reservada(char s[]){
-    const char *palavras_reservadas[]={"begin","end","if","then","else","while","integer","do","var","procedure","function","program",NULL};
+    const char *palavras_reservadas[]={"BEGIN","END","IF","THEN","ELSE","WHILE","INTEGER","DO","VAR","PROCEDURE","FUNCTION","PROGRAM","READ","WRITE",NULL};
 
     for(int i=0;palavras_reservadas[i]!=NULL;++i){
         if(strcmp(s,palavras_reservadas[i])==0)return true;
@@ -173,22 +180,21 @@ void ANALISADOR_LEXICO(){
             PROXIMO();
         }while(letra_ou_digito(proximo));
 
-        if(palavra_reservada(atomo)){
+        if(palavra_reservada(transforma_maiuscula(atomo))){
             simbolo=CODIGO(atomo,0);
             adicionar_na_lista(simbolo);
             //fprintf(saida,"%s",simbolo.codigo);
         }else{
-            Token* aux=pega_na_tabela(atomo);
+            Token* aux=pega_na_tabela(transforma_maiuscula(atomo));
             if(aux==NULL){
                 //gravar na tabela
-                simbolo=CODIGO(atomo,1);
+                simbolo=CODIGO(transforma_maiuscula(atomo),1);
                 adicionar_na_tabela(simbolo);
                 adicionar_na_lista(simbolo);
-                //fprintf(saida,"%s",simbolo.codigo);
+                
 
             }else{
                 adicionar_na_lista(*aux);
-                //fprintf(saida,"%s",aux->codigo);
             }
 
         }
@@ -203,13 +209,13 @@ void ANALISADOR_LEXICO(){
         }
         simbolo=CODIGO(atomo,2);
         adicionar_na_lista(simbolo);
-        //fprintf(saida,"%s",simbolo.codigo);
+        
 
     }else if(proximo==EOF){
         simbolo.tipo=TOKEN_EOF;
         stpcpy(simbolo.valor,"EOF");
         stpcpy(simbolo.codigo,"EOF");
-        //adicionar_na_lista(simbolo);
+       
     }else{
         char msg[100]="Caractere '";
         char str_proximo[2];
@@ -240,19 +246,19 @@ Token CODIGO(char s[],int tipo){
         else if (strcmp(s,"=")==0){
             t.tipo=TOKEN_IGUAL;
         }
-        else if(strcmp(s,"begin")==0){
+        else if(strcmp(s,"BEGIN")==0){
             t.tipo=TOKEN_BEGIN;
         }
-        else if(strcmp(s,"end")==0){
+        else if(strcmp(s,"END")==0){
             t.tipo=TOKEN_END;
         }
-        else if(strcmp(s,"program")==0){
+        else if(strcmp(s,"PROGRAM")==0){
             t.tipo=TOKEN_PROGRAM;
-        }else if(strcmp(s,"var")==0){
+        }else if(strcmp(s,"VAR")==0){
             t.tipo=TOKEN_VAR;
-        }else if (strcmp(s,"integer")==0){
+        }else if (strcmp(s,"INTEGER")==0){
             t.tipo=TOKEN_INTEGER;
-        }else if(strcmp(s,"procedure")==0){
+        }else if(strcmp(s,"PROCEDURE")==0){
             t.tipo=TOKEN_PROCEDURE;
         }else if(strcmp(s,"+")==0){
             t.tipo=TOKEN_MAIS;
@@ -272,10 +278,14 @@ Token CODIGO(char s[],int tipo){
             t.tipo=TOKEN_DIFERENTE;
         }else if(strcmp(s,";")==0){
             t.tipo=TOKEN_PONTO_VIRGULA;
+        }else if(strcmp(s,"READ")==0){
+            t.tipo=TOKEN_READ;
+        }else if (strcmp(s,"WRITE")==0){
+            t.tipo=TOKEN_WRITE;
         }
         
         
-        strcpy(t.codigo,s);
+        strcpy(t.codigo,transforma_maiuscula(s));
 
     }
     else if(tipo==1){//for identificador
@@ -325,4 +335,12 @@ void escreve_saida(){
         fclose(saida);
     }
 
+}
+
+
+char* transforma_maiuscula(char str[]){
+    for(int i=0;str[i];i++){
+        str[i]=toupper(str[i]);
+    }
+    return str;
 }

@@ -1,3 +1,11 @@
+/*
+Guilherme Negrini Marques
+RA: 231020104
+SO: macOS
+IDE: VsCode
+OBS: o código funciona para qualquer SO (seja mac,Windows ou Linux)
+*/
+
 #include "lista_entrada.h"
 
 

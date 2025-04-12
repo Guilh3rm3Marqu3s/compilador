@@ -1,0 +1,3 @@
+>> Para compilar o projeto rode:
+gcc -o compilador compilador.c lista_entrada.c tabela_simbolos.c
+O código também está disponível no github:
