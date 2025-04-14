@@ -1,3 +1,12 @@
 >> Para compilar o projeto rode:
+
 gcc -o compilador compilador.c lista_entrada.c tabela_simbolos.c
-O código também está disponível no github:
+
+>> Isso criará um arquivo executável chamado compilador, para executar basta digitar:
+>>(Linux/mac)
+./compilador <endereco do arquivo de entrada>
+>>(Windows)
+compilador <endereco do arquivo de entrada>
+
+>> O código também está disponível no github:
+https://github.com/Guilh3rm3Marqu3s/compilador

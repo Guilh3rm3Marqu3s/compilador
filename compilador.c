@@ -61,7 +61,7 @@ int main(int argc, char *argv[]){
   {
     
     ANALISADOR_LEXICO();
-    //printf("Token: '%s' --> Valor: '%s'\n",simbolo.codigo,simbolo.valor);
+    
   }
 
   printf("=================================================================\n");
@@ -72,7 +72,7 @@ int main(int argc, char *argv[]){
         aux=tabela_simbolos[i];
         while (aux!=NULL)
         {
-            printf("Token: '%s' --> Valor: '%s' \n",aux->token.codigo,aux->token.valor);
+            printf("Token: '%s' --> Lexema: '%s' \n",aux->token.codigo,aux->token.lexema);
             aux=aux->prox;
         }
       
@@ -87,7 +87,7 @@ int main(int argc, char *argv[]){
 bool arquivo_existe(char *nome_arquivo){
     #ifdef _WIN32
     DWORD atributos = GetFileAttributes(nome_arquivo);
-    printf("O arquivo %s nao foi encontrado.\nVerifique o diretorio",nome_arquivo);
+    
     if(atributos != INVALID_FILE_ATTRIBUTES && !(atributos & FILE_ATTRIBUTE_DIRECTORY)){
         return true;
     }else{
@@ -114,7 +114,7 @@ bool verificar_parametro_inicializacao(int argc){
 }
 
 bool simbolo_especial(char c){
-    return strchr(":=+-*/(),;<>",c)!=NULL;
+    return strchr(":=+-*/(),;<>.",c)!=NULL;
 }
 bool letra(char c){
     return isalpha(c);
@@ -142,17 +142,17 @@ void ANALISADOR_LEXICO(){
         
         if(proximo=='\n'){
             strcpy(simbolo.codigo,"\n");
-            strcpy(simbolo.valor,"\n");
+            strcpy(simbolo.lexema,"\n");
             simbolo.tipo=TOKEN_NOVA_LINHA;
             contador_linha++;
             
         }else if(proximo==' '){
             strcpy(simbolo.codigo," ");
-            strcpy(simbolo.valor," ");
+            strcpy(simbolo.lexema," ");
             simbolo.tipo=TOKEN_ESPACO;
         }else{
             strcpy(simbolo.codigo,"\t");
-            strcpy(simbolo.valor,"\t");
+            strcpy(simbolo.lexema,"\t");
             simbolo.tipo=TOKEN_TAB;
         }
         adicionar_na_lista(simbolo);
@@ -213,8 +213,8 @@ void ANALISADOR_LEXICO(){
 
     }else if(proximo==EOF){
         simbolo.tipo=TOKEN_EOF;
-        stpcpy(simbolo.valor,"EOF");
-        stpcpy(simbolo.codigo,"EOF");
+        strcpy(simbolo.lexema,"EOF");
+        strcpy(simbolo.codigo,"EOF");
        
     }else{
         char msg[100]="Caractere '";
@@ -235,7 +235,7 @@ void ANALISADOR_LEXICO(){
 }
 Token CODIGO(char s[],int tipo){
     Token t;
-    strcpy(t.valor,s);
+    strcpy(t.lexema,s);
     if(tipo==0){//simbolos
         if(strcmp(s,":=")==0){
             t.tipo=TOKEN_ATRIBUICAO;
@@ -268,7 +268,10 @@ Token CODIGO(char s[],int tipo){
             t.tipo=TOKEN_MULT;
         }else if(strcmp(s,">")==0){
             t.tipo=TOKEN_MAIOR;
-        }else if(strcmp(s,"<")==0){
+        }else if(strcmp(s,".")==0){
+            t.tipo=TOKEN_PONTO;
+        }
+        else if(strcmp(s,"<")==0){
             t.tipo=TOKEN_MENOR;
         }else if(strcmp(s,">=")==0){
             t.tipo=TOKEN_MAIOR_IGUAL;

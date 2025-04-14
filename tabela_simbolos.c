@@ -23,7 +23,7 @@ void adicionar_na_tabela(Token elemento){
    
     Node* novoNo=(Node*)malloc(sizeof(Node));
     novoNo->token=(elemento);
-    int posicao=hashing(elemento.valor);
+    int posicao=hashing(elemento.lexema);
    
     if(tabela_simbolos[posicao]==NULL){
         //não há nada
@@ -76,7 +76,7 @@ Token* pega_na_tabela(char s[]){
     Node* aux=tabela_simbolos[posicao];
     if(aux==NULL)return NULL;
     else if(aux->prox==NULL){
-        if(strcmp(aux->token.valor,s)==0){
+        if(strcmp(aux->token.lexema,s)==0){
             return &aux->token;
         }else{
             return NULL;
@@ -86,7 +86,7 @@ Token* pega_na_tabela(char s[]){
     
         while (aux!=NULL)
         {
-            if(strcmp(aux->token.valor,s)==0){
+            if(strcmp(aux->token.lexema,s)==0){
                 return &aux->token;
             }
             aux=aux->prox;

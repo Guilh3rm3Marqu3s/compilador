@@ -3,6 +3,7 @@
 typedef enum{
     TOKEN_IDENTIFICADOR,
     TOKEN_NUMERO,
+    TOKEN_PONTO, //.
     TOKEN_ATRIBUICAO, //:=
     TOKEN_DOIS_PONTOS, //:
     TOKEN_IGUAL, //=
@@ -35,8 +36,8 @@ typedef enum{
 
 typedef struct{
     TipoToken tipo;
-    char valor[60]; //atomo
-    char codigo[60];
+    char lexema[60]; //lexema
+    char codigo[60]; //átomo
 }Token;
 
 
