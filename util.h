@@ -14,6 +14,7 @@ typedef enum{
     TOKEN_MENOS,//-
     TOKEN_MULT,
     TOKEN_INTEGER,
+    TOKEN_BOOLEAN,
     TOKEN_VAR,
     TOKEN_PROGRAM,
     TOKEN_PROCEDURE,
@@ -29,8 +30,18 @@ typedef enum{
     TOKEN_NOVA_LINHA,
     TOKEN_READ,
     TOKEN_WRITE,
-
-
+    TOKEN_ABRE_PAR,
+    TOKEN_FECHA_PAR,
+    TOKEN_NOT,
+    TOKEN_DIV,
+    TOKEN_AND,
+    TOKEN_OR,
+    TOKEN_VIRGULA,
+    TOKEN_WHILE,
+    TOKEN_DO,
+    TOKEN_IF,
+    TOKEN_ELSE,
+    TOKEN_THEN
 
 } TipoToken;
 
@@ -38,6 +49,7 @@ typedef struct{
     TipoToken tipo;
     char lexema[60]; //lexema
     char codigo[60]; //átomo
+    int linha;
 }Token;
 
 
