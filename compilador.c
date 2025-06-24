@@ -3,6 +3,7 @@ Guilherme Negrini Marques
 RA: 231020104
 SO: macOS
 IDE: VsCode
+Compilador: GCC
 OBS: o código funciona para qualquer SO (seja mac,Windows ou Linux)
 */
 #include<stdio.h>
@@ -409,7 +410,7 @@ void programa(){
    }
    consume();
    if(token_atual.tipo!=TOKEN_PONTO_VIRGULA){
-    ERRO("';' nao encontrado",token_atual.linha);
+    ERRO("';' nao encontrado",token_atual.linha-1);
    }
    consume(); // Consome ;
    bloco();
@@ -435,7 +436,7 @@ void parte_declaracoes_variaveis(){
     consume(); //consome ;
     declaracao_variaveis();
  }
-  if(token_atual.tipo != TOKEN_PONTO_VIRGULA)ERRO("';' nao encontrado",token_atual.linha);
+  if(token_atual.tipo != TOKEN_PONTO_VIRGULA)ERRO("';' nao encontrado",token_atual.linha-1);
   consume();
  
  
@@ -581,7 +582,7 @@ void comando_sem_rotulo(){
             comando_repetitivo();
             break;
         default:
-            ERRO("Comando desconhecido", token_atual.linha);
+            ERRO("Comando desconhecido", token_atual.linha-1);
     }
 }
 

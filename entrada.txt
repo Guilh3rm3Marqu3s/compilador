@@ -6,16 +6,15 @@ program exemplo1;
 	begin
 		q:=i*i;
 		if (i div 2)*2 = i then
-			s:=s+q
+			s:=s+q;
+			a:=0
 		else
-			s:=s-q
+			s:=s-q;
 	end;
-	
-	
 begin
 	read(n);
 	s:=0; i:=0;
-	while i<n do
+	while i<=n do
 	begin	
 		soma;
 		write (s);
